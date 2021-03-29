@@ -1,6 +1,6 @@
 //Criando a classe principal
-public class estudandoprintl {
-    
+
+public class estudandoprintl {  
     public static void main (String [] args)
     {
         System.out.println(3 + 4);
