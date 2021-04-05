@@ -5,11 +5,11 @@ public class calculadora {
 
    public double getMemoria (){
        return this.memoria;
-   }
+    }
 
    public void somar (double valor){
       memoria = memoria + valor;
-   }
+    }
    
     public void subtrair (double valor){
         memoria = memoria - valor;

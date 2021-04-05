@@ -31,7 +31,7 @@ public class minhaFaculdade {
         
         //Instanciando o objeto
         alunoDisciplina aluno = new alunoDisciplina();
-        aluno.exibeAlunoDisciplina(idDisc,nomeDis1 , idAlu, nomeAlu1);
+        aluno.exibeAlunoDisciplina(idDisc,nomeDis1, idAlu, nomeAlu1);
         double media = aluno.mediaAritmetica(nota1, nota2);
         double mediaP = aluno.mediaPonderada(nota1, nota2);
 

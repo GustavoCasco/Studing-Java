@@ -49,13 +49,10 @@ public class relogio {
       this.minuto = segundosTotal / 60;
       segundosTotal = segundosTotal % 60;
       this.segundo = segundosTotal;
-
   }
 
   public String getHorario ()
   {
     return this.hora + ":" + this.minuto + ":" + this.segundo; 
   }
-  
-
 }
