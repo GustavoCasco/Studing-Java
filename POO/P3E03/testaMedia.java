@@ -78,10 +78,11 @@ public class testaMedia {
              for (turma a: tur){
                 soma += (a.mediaSala());
              }
-
+        
         System.out.println("------------------------------");
          //Realiza o calculo da media pegando o valor da soma das medias atraves da lista    
         System.out.println("Media Geral = " + soma/qtd);
         System.out.println("------------------------------");
+
     }
 }

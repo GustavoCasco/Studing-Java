@@ -1,0 +1,69 @@
+package com.example.demo.Controllers;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.Models.AlunoModel;
+import com.example.demo.services.AlunoService;
+@RestController
+public class AlunosControllers {
+	
+	ArrayList<AlunoModel> aluno = new ArrayList<>();
+	@Autowired
+	private AlunoService alunoService;
+	@GetMapping("alunos")
+	public ArrayList<AlunoModel> getAll()
+	{
+		return aluno;
+	}
+	
+	@GetMapping("alunos/{matricula}")
+	public AlunoModel getById(@PathVariable int matricula ,  @RequestParam(value = "q", defaultValue="") String query)
+	{
+		AlunoModel response = alunoService.findByMatricula(aluno, matricula);
+		return response;
+	}
+	
+	@PostMapping("alunos")
+	public AlunoModel cadastrarAluno(@RequestBody AlunoModel novoAluno)
+	{
+		this.aluno.add(novoAluno);
+		return novoAluno;
+	}
+	
+	@PatchMapping("alunos/{matricula}")
+	public AlunoModel update( @RequestBody AlunoModel novoAluno, @PathVariable int matricula ) {
+		AlunoModel response = null;
+		
+		for (AlunoModel aluno : aluno) {
+			if (aluno.getMatricula() == matricula) {
+				aluno.setMatricula(novoAluno.getMatricula());
+				aluno.setNome(novoAluno.getNome());
+				response = novoAluno;
+			}
+		}
+		return response;
+	}
+	
+	@DeleteMapping ("alunos/{matricula}")
+	public void deleteAluno(@PathVariable int matricula) 
+	{
+		for(int i = 0 ; i< aluno.size(); i++)
+		{
+			if(aluno.get(i).getMatricula() == matricula)
+			{
+				aluno.remove(i);
+			}
+		}
+	}
+
+}

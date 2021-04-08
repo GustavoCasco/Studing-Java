@@ -1,0 +1,8 @@
+package com.example.demo.Models;
+
+@Data
+public class AlunoModel {
+	private int Matricula;
+	private String Nome;
+	private String Turma;
+}
