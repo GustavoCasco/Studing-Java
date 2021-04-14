@@ -1,0 +1,53 @@
+package com.example.demo.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Models.AlunoModel;
+import com.example.demo.Models.TipoCliente;
+import com.example.demo.repositories.alunoRepository;
+
+@Service
+public class AlunoService {
+	@Autowired
+	private alunoRepository alunoResp;
+	
+	public List<AlunoModel> getall()
+	{
+		return this.alunoResp.findAll();
+	}
+	
+	public AlunoModel getById(int id)
+	{
+		return this.alunoResp.findById(id)
+				.orElseThrow(() -> new RuntimeException("Registro não localizado"));
+	}
+	
+	
+	public AlunoModel cadastro (AlunoModel novoAluno)
+	{
+		return alunoResp.save(novoAluno);
+	}
+	
+	public AlunoModel update (AlunoModel attAluno, int id)
+	{
+		Optional<AlunoModel> opAluno = this.alunoResp.findById(id);
+		
+		if (opAluno.isPresent()) {
+		
+			AlunoModel upd = opAluno.get();
+			//Atualiza a descricao 
+			upd.setNome(attAluno.getNome());
+			upd.setTurma(attAluno.getTurma());
+	
+			return this.alunoResp.save(upd);
+		}
+		else {
+			return null;
+		}
+	}
+}

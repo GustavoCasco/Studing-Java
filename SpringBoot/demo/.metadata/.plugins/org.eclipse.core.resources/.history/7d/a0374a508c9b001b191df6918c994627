@@ -1,0 +1,32 @@
+package com.example.demo.services;
+
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Models.TipoCliente;
+import com.example.demo.repositories.TipoClienteRepository;
+
+@Service
+public class TipoClienteService {
+		@Autowired
+		private TipoClienteRepository tipoClienteRepository;
+		 	
+		public List<TipoCliente> findAll()
+		{
+			return this.tipoClienteRepository.findAll();
+		}
+		
+		public TipoCliente getById(int id)
+		{
+			Optional<TipoCliente> opTipoCli = this.tipoClienteRepository.findById(id);
+			
+			if (opTipoCli.isPresent()) {
+				return opTipoCli.get();
+			}
+			else {
+				return null;
+			}
+		}
+}

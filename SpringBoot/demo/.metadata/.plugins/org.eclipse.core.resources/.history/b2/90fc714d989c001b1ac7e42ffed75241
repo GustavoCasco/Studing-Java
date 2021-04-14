@@ -1,0 +1,52 @@
+package com.example.demo.Controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.Models.escolaModel;
+import com.example.demo.services.escolaService;
+
+@RestController
+public class escolaController {
+	
+	@Autowired
+	private escolaService escolaser;
+	
+	@GetMapping("escola")
+	public List<escolaModel> getAll ()
+	{
+		return this.escolaser.getAll();
+	}
+	
+	@GetMapping("escola/{id}")
+	public escolaModel getBtId (@PathVariable int id)
+	{
+		return this.escolaser.getById(id);
+	}
+	
+	@PostMapping("escola")
+	public escolaModel addescola (@RequestBody escolaModel novaescola)
+	{
+		return this.escolaser.addEscola(novaescola);
+	}
+	
+	@PutMapping("escola/{id}")
+	public escolaModel updateEscola (@RequestBody escolaModel attEscola, @PathVariable int id )
+	{
+		return this.escolaser.updateEscola(attEscola, id);
+	}
+	
+	@DeleteMapping("escola/{id}")
+	public void delete (@PathVariable int id)
+	{
+		this.escolaser.deleteEscola(id);
+	}
+}

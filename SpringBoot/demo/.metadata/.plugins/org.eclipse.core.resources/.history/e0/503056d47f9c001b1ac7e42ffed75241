@@ -1,0 +1,6 @@
+package com.example.demo.dtos;
+
+public class materiaDto {
+		private int id;
+		private String nome;
+}

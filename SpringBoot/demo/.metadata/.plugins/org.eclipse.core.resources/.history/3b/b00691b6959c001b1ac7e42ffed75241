@@ -1,0 +1,51 @@
+package com.example.demo.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Models.AlunoModel;
+import com.example.demo.Models.TipoCliente;
+import com.example.demo.dtos.alunoDTO;
+import com.example.demo.repositories.alunoRepository;
+
+@Service
+public class AlunoService {
+	@Autowired
+	private alunoRepository alunoResp;
+	
+	public List<alunoDTO> getall()
+	{
+		List<AlunoModel> aluno = this.alunoResp.findAll();
+		return aluno.stream().map(a -> a.toDto()).collect(Collectors.toCollection(ArrayList::new));
+	}
+	
+	public alunoDTO getById(int id)
+	{
+		return this.alunoResp.findById(id)
+				.orElseThrow(() -> new RuntimeException("Aluno  não localizado")).toDto();
+	}
+	
+	
+	public alunoDTO cadastro (AlunoModel novoAluno)
+	{
+		return alunoResp.save(novoAluno).toDto();
+	}
+	
+	public AlunoModel updateAluno(AlunoModel attAluno, int id)
+	{						
+				AlunoModel upd = this.getById(id);
+				upd.setNome(attAluno.getNome());
+				upd.setTurma(attAluno.getTurma());
+				return this.alunoResp.save(upd);
+	}
+	
+	public void deleteAluno(int id)
+	{
+		alunoResp.deleteById(id);
+	}
+}

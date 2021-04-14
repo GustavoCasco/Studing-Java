@@ -1,0 +1,43 @@
+package com.example.demo.Models;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import org.modelmapper.ModelMapper;
+
+import com.example.demo.dtos.MateriaDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table (name = "materia")
+public class materiaModel {
+	
+			@Id
+			@GeneratedValue ( strategy = GenerationType.IDENTITY)
+			private int idmateria; 
+			private String nome;
+			private String professor;
+			@JsonIgnore
+			@ManyToMany( mappedBy = "materia")
+			List<AlunoModel> aluno;
+			
+			public MateriaDTO toDto() {
+				ModelMapper modelMapper = new ModelMapper();
+				
+				return modelMapper.map(this, MateriaDTO.class);
+			}
+			
+}

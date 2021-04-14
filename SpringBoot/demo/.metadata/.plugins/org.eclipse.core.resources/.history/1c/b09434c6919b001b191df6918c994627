@@ -1,0 +1,63 @@
+package com.example.demo.services;
+
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.example.demo.Models.TipoCliente;
+import com.example.demo.repositories.TipoClienteRepository;
+
+@Service
+public class TipoClienteService {
+		//importando o repository
+		@Autowired
+		private TipoClienteRepository tipoClienteRepository;
+		
+		//metodo get all 
+		public List<TipoCliente> findAll()
+		{
+			return this.tipoClienteRepository.findAll();
+		}
+		
+		//metodo get By Id
+		public TipoCliente getById(int id)
+		{
+			Optional<TipoCliente> opTipoCli = this.tipoClienteRepository.findById(id);
+			
+			if (opTipoCli.isPresent()) {
+				return opTipoCli.get();
+			}
+			else {
+				return null;
+			}
+		
+		}
+		
+		//metodo cadastrar
+		public TipoCliente Cadastro(@RequestBody TipoCliente addTipo)
+		{
+			return this.tipoClienteRepository.save(addTipo);
+			
+		}
+		
+		public TipoCliente update(int id, TipoCliente updatetipocliente)
+		{
+			Optional<TipoCliente> opTipoCli = this.tipoClienteRepository.findById(id);
+			//Verifica se existe o id 
+			if (opTipoCli.isPresent()) {
+				//Objeto tipo cliente recebe o get da lista
+				TipoCliente upd = opTipoCli.get();
+				//Atualiza a descricao 
+				upd.setDesctipocli(updatetipocliente.getDesctipocli());
+				// retorna a atualização e salva
+				return this.tipoClienteRepository.save(upd);
+			}
+			else {
+				return null;
+			}
+		}
+		
+	
+}

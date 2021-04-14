@@ -1,0 +1,57 @@
+package com.example.demo.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Models.materiaModel;
+import com.example.demo.dtos.materiaDto;
+import com.example.demo.repositories.materiaRepository;
+
+import sun.awt.www.content.audio.x_aiff;
+
+@Service
+public class materiaService {
+	@Autowired
+	private materiaRepository mReposi;
+	
+	public List<materiaDto> findAll(){
+		
+	//	List<materiaDto> listDTO = new ArrayList<>();
+		
+		List<materiaModel> list = this.mReposi.findAll();
+		/* convertendo model para DTO*/
+		//for (materiaModel materiaModel : list) {
+							
+		//	listDTO.add( materiaModel.toDto() );
+		//}
+		return list.stream().map( x -> x.toDto()).collect(Collectors.toCollection(ArrayList::new));
+	}
+	
+	
+	public materiaModel getById (int id)
+	{
+		return this.mReposi.findById(id).orElseThrow(() -> new RuntimeException("Materia não encontrada"));
+	}
+	
+	public materiaModel cadastrarMateria(materiaModel novaMateria)
+	{
+		return this.mReposi.save(novaMateria);
+	}
+	
+	public materiaModel updMateria(int id, materiaModel attMateria)
+	{
+		materiaModel mat = this.getById(id);
+		mat.setNome(attMateria.getNome());
+		mat.setProfessor(attMateria.getProfessor());
+		return this.mReposi.save(mat);
+	}
+	
+	public void deleteMateria(int id)
+	{
+		mReposi.deleteById(id);
+	}
+}

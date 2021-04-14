@@ -1,0 +1,49 @@
+package com.example.demo.Controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.example.demo.Models.materiaModel;
+import com.example.demo.services.materiaService;
+
+public class materiaController {
+	@Autowired
+	private materiaService materiaService;
+	
+	@GetMapping("materia")
+	public List<materiaModel> getAll ()
+	{
+		return this.materiaService.getAll();
+	}
+	
+	@GetMapping("materia/{id}")
+	public materiaModel getBtId (@PathVariable int id)
+	{
+		return this.materiaService.getById(id);
+	}
+	
+	@PostMapping("materia")
+	public materiaModel addescola (@RequestBody materiaModel novaMateria)
+	{
+		return this.materiaService.cadastrarMateria(novaMateria);
+	}
+	
+	@PutMapping("materia/{id}")
+	public materiaModel updateEscola (@RequestBody materiaModel attMateria, @PathVariable int id )
+	{
+		return this.updateEscola(attMateria, id);
+	}
+	
+	@DeleteMapping("materia/{id}")
+	public void delete (@PathVariable int id)
+	{
+		this.materia.deleteMateria(id);
+	}
+}
