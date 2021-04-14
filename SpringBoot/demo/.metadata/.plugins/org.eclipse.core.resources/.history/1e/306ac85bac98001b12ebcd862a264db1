@@ -1,8 +1,0 @@
-package com.example.demo.repositories;
-
-public class CrudInterfaceImpl implements CrudInterface {
-	
-	public void create() {
-		System.out.println("dwshu");
-	}
-}
